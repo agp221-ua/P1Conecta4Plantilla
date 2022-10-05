@@ -7,13 +7,12 @@ def busca(tablero, col):
     while i < tablero.getAlto() and tablero.getCelda(i, col) == 0:
         i = i + 1
     i = i - 1
-
     return i
 
 
 # llama al algoritmo que decide la jugada
 def juega(tablero, posicion):
-    nodo = Nodo(tablero, None, -1, 5, 0, True)
+    nodo = Nodo(tablero, None, -1, 5, True)
     posicion[0] = tablero.queFilaDisp(nodo.colSol)
     posicion[1] = nodo.colSol
     print("Acabao")
