@@ -21,7 +21,7 @@ class Nodo:
             # if not self.minmax:
             #     self.valor *= -1
         elif cer == 2:
-            self.valor = 1000# if minmax else -1000
+            self.valor = 1000  # if minmax else -1000
         else:
             self.valor = -1000
         self.colSol = -1
@@ -36,44 +36,38 @@ class Nodo:
 
     def calcular_parejas_trios(self, fila, col):
         punt = 0
-        if self.getIANum() == self.tablero.getCelda(fila, col):
+        thisCelda = self.tablero.getCelda(fila, col)
+        if 0 != thisCelda:
             for f in range(-1, 2):
                 for c in range(-1, 2):
                     ff = fila + f
                     cc = col + c
                     # Aqui entra si hay pareja
-                    if self.tablero.getCelda(ff, cc) == self.valor:
+                    if self.tablero.getCelda(ff, cc) == thisCelda:
                         fff = ff + f
                         ccc = cc + c
                         # Aqui entra si hay trio tomando como extremo el del [fila,col]
-                        if self.tablero.getCelda(fff, ccc) == self.valor:
-                            punt += 10
+                        if self.tablero.getCelda(fff, ccc) == thisCelda:
+                            ffff = fff + f
+                            cccc = ccc + c
+                            aux = self.tablero.getCelda(ffff, cccc)
+                            fffff = fila - f
+                            ccccc = col - c
+                            aux2 = self.tablero.getCelda(fffff, ccccc)
+                            #Aqui entra si se pudiera en un futuro hacer 4raya con ese trio, porque si no es inutil
+                            if aux != 0 or aux2 != 0:
+                                punt += 10 if self.tablero.getCelda(fila, col) == self.getIANum() else -10
+                        #Aqui entra a ver si resulta que hay trio siendo this el central
                         else:
                             fff = fila - f
                             ccc = col - c
-                            if self.tablero.getCelda(fff, ccc) == self.valor:
-                                punt += 10
+                            #Aqui entra si el opuesto a (ff,cc) respecto a thisCelda es haciendo 3 en raya
+                            #Podria mirar a ver en un momento dado si es expandible, pero no merece la pena
+                            if self.tablero.getCelda(fff, ccc) == thisCelda:
+                                punt += 10 if self.tablero.getCelda(fila, col) == self.getIANum() else -10
                             else:
-                                punt += 1
-        elif self.tablero.getCelda(fila, col) != 0:
-            for f in range(-1, 2):
-                for c in range(-1, 2):
-                    ff = fila + f
-                    cc = col + c
-                    # Aqui entra si hay pareja
-                    if self.tablero.getCelda(ff, cc) == self.valor:
-                        fff = ff + f
-                        ccc = cc + c
-                        # Aqui entra si hay trio tomando como extremo el del [fila,col]
-                        if self.tablero.getCelda(fff, ccc) == self.valor:
-                            punt -= 10
-                        else:
-                            fff = fila - f
-                            ccc = col - c
-                            if self.tablero.getCelda(fff, ccc) == self.valor:
-                                punt -= 10
-                            else:
-                                punt -= 1
+                                punt += 5 if self.tablero.getCelda(fila, col) == self.getIANum() else -5
+
         return punt
 
     def calcular_valor_hoja(self):
@@ -102,6 +96,6 @@ class Nodo:
             return 'h:' + str(self.valor)
         else:
             s = "n:" + str(self.valor) + ' | '
-            for i in range(0,len(self.hijos)):
+            for i in range(0, len(self.hijos)):
                 s += str(self.hijos[i].valor) + ' '
             return s

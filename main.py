@@ -74,6 +74,7 @@ def main():
         reloj.tick(40)
         if game_over==True: #retardo cuando gana
             pygame.time.delay(1500)
+            print(str(tablero))
     
     pygame.quit()
  
