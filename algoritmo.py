@@ -1,4 +1,5 @@
 from nodo import *
+import time
 # busca en col la primera celda vacía
 def busca(tablero, col):
     if tablero.getCelda(0, col) != 0:
@@ -12,11 +13,13 @@ def busca(tablero, col):
 
 # llama al algoritmo que decide la jugada
 def juega(tablero, posicion):
-    nodo = Nodo(tablero, None, -1, 5, True)
+    #tiempou = time.time()
+    nodo = Nodo(tablero, None, -1, 5, True, Nodo.MIN_VALUE, Nodo.MAX_VALUE)
     posicion[0] = tablero.queFilaDisp(nodo.colSol)
     posicion[1] = nodo.colSol
-    print("Acabao")
-
+    #tiempou2 = time.time()
+    #print(f"Acabao a los {tiempou2 - tiempou} segundos")
+    print("Acabado nuevo")
     ####################################################
     ## sustituir este código por la llamada al algoritmo
     #

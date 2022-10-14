@@ -1,6 +1,14 @@
+import sys
+
+
 class Nodo:
-    def __init__(self, tablero, nodo_padre, columna, nivel, minmax):
+    MAX_VALUE = sys.maxsize
+    MIN_VALUE = -sys.maxsize - 1
+
+    def __init__(self, tablero, nodo_padre, columna, nivel, minmax, alpha, beta):
         self.tablero = tablero
+        self.alpha = alpha
+        self.beta = beta
         # min false, max true
         self.minmax = minmax
         self.nivel = nivel
@@ -12,14 +20,18 @@ class Nodo:
         if cer == 0:
             if (nivel != 0):
                 for i in range(0, 8):
-                    if (self.tablero.queFilaDisp(i) != -1):
+                    if self.tablero.queFilaDisp(i) != -1:
+                        if self.beta <= self.alpha:
+                            break
                         fila = self.tablero.insertFicha(i, 2 if minmax else 1)
-                        padre = self
-                        self.hijos.append(Nodo(self.tablero, padre, i, nivel - 1, not minmax))
+                        self.hijos.append(Nodo(self.tablero, self, i, nivel - 1, not minmax, alpha, beta))
+                        if minmax:
+                            self.alpha = self.hijos[-1].valor
+                        else:
+                            self.beta = self.hijos[-1].valor
                         self.tablero.removeFicha(i, fila)
+
             self.valor = self.calcular_valor()
-            # if not self.minmax:
-            #     self.valor *= -1
         elif cer == 2:
             self.valor = 1000  # if minmax else -1000
         else:
@@ -54,15 +66,15 @@ class Nodo:
                             fffff = fila - f
                             ccccc = col - c
                             aux2 = self.tablero.getCelda(fffff, ccccc)
-                            #Aqui entra si se pudiera en un futuro hacer 4raya con ese trio, porque si no es inutil
-                            if aux != 0 or aux2 != 0:
+                            # Aqui entra si se pudiera en un futuro hacer 4raya con ese trio, porque si no es inutil
+                            if aux == 0 or (aux != 0 and aux2 == 0):
                                 punt += 10 if self.tablero.getCelda(fila, col) == self.getIANum() else -10
-                        #Aqui entra a ver si resulta que hay trio siendo this el central
+                        # Aqui entra a ver si resulta que hay trio siendo this el central
                         else:
                             fff = fila - f
                             ccc = col - c
-                            #Aqui entra si el opuesto a (ff,cc) respecto a thisCelda es haciendo 3 en raya
-                            #Podria mirar a ver en un momento dado si es expandible, pero no merece la pena
+                            # Aqui entra si el opuesto a (ff,cc) respecto a thisCelda es haciendo 3 en raya
+                            # Podria mirar a ver en un momento dado si es expandible, pero no merece la pena
                             if self.tablero.getCelda(fff, ccc) == thisCelda:
                                 punt += 10 if self.tablero.getCelda(fila, col) == self.getIANum() else -10
                             else:
@@ -85,7 +97,7 @@ class Nodo:
         if self.nivel == 0:
             return self.calcular_valor_hoja()
         else:
-            mejor = -1 if self.minmax else 300000
+            mejor = self.MIN_VALUE if self.minmax else self.MAX_VALUE
             for i in range(0, len(self.hijos)):
                 val = self.hijos[i].valor
                 mejor = max(mejor, val) if self.minmax else min(mejor, val)
