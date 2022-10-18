@@ -13,13 +13,14 @@ def busca(tablero, col):
 
 # llama al algoritmo que decide la jugada
 def juega(tablero, posicion):
-    #tiempou = time.time()
-    nodo = Nodo(tablero, None, -1, 5, True, Nodo.MIN_VALUE, Nodo.MAX_VALUE)
+    tiempou = time.time()
+    nodo = Nodo(tablero, None, -1, -1, 8, True, Nodo.MIN_VALUE, Nodo.MAX_VALUE)
     posicion[0] = tablero.queFilaDisp(nodo.colSol)
     posicion[1] = nodo.colSol
-    #tiempou2 = time.time()
-    #print(f"Acabao a los {tiempou2 - tiempou} segundos")
-    print("Acabado nuevo")
+    #Nodo.nodos_hasta_el_momento = 0  ##cosas de debuggeo
+    tiempou2 = time.time()
+    print(f"Acabao a los {tiempou2 - tiempou} segundos")
+    #print("Acabado nuevo")
     ####################################################
     ## sustituir este código por la llamada al algoritmo
     #

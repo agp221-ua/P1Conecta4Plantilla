@@ -1,7 +1,6 @@
-import sys, pygame
+import pygame
 from tablero import *
 from algoritmo import *
-from pygame.locals import *
 
 MARGEN=20
 ROJO=(255, 0, 0)
