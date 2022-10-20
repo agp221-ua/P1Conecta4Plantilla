@@ -8,9 +8,9 @@ class Nodo:
     MIN_VALUE = -sys.maxsize - 1
     nodos_hasta_el_momento = 0
     IA_NUM = 2
-    PAIR_VALUE = 20
-    TRIO_VALUE = 95
-    FOUR_VALUE = 900
+    PAIR_VALUE = 18
+    TRIO_VALUE = 30
+    FOUR_VALUE = 100
     COL_VALUES = [0,1,2,3,3,2,1,0]
 
     def __init__(self, tablero, nodo_padre, columna, fila_cuatro, nivel, minmax, alpha, beta):

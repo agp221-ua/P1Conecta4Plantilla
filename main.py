@@ -40,16 +40,16 @@ def main():
                 if fila!=-1:
                     tablero.setCelda(fila, colDestino, 1)
                 #si detecta un cuatro en raya gana la persona
-                if tablero.cuatroEnRaya()==1:
-                    game_over=True
-                    print ("gana persona")               
-                else:  #si la persona no ha ganado, juega la máquina 
-                    posicion=[-1,-1]
-                    juega(tablero, posicion)                
-                    tablero.setCelda(posicion[0], posicion[1], 2)                    
-                    if tablero.cuatroEnRaya()==2:
+                    if tablero.cuatroEnRaya()==1:
                         game_over=True
-                        print ("gana máquina")
+                        print ("gana persona")
+                    else:  #si la persona no ha ganado, juega la máquina
+                        posicion=[-1,-1]
+                        juega(tablero, posicion)
+                        tablero.setCelda(posicion[0], posicion[1], 2)
+                        if tablero.cuatroEnRaya()==2:
+                            game_over=True
+                            print ("gana máquina")
             
         #código de dibujo        
         #limpiar pantalla
