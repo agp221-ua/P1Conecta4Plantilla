@@ -30,8 +30,8 @@ class Nodo2:
         cer = self.tablero.cuatroEnRayaFast(fila_cuatro, columna)
         if cer == 0:
             if nivel != 0:
-                for i in [3,4,2,5,1,6,0,7]:
-                #for i in [0,1,2,3,4,5,6,7]:
+                #for i in [3,4,2,5,1,6,0,7]:
+                for i in [0,1,2,3,4,5,6,7]:
                     if self.tablero.queFilaDisp(i) != -1:
                         if self.beta <= self.alpha:
                             break
@@ -145,8 +145,8 @@ class Nodo2:
 
     def calcular_valor(self):
         if self.nivel == 0:
-            #return self.evaluate()
-            return self.calcular_valor_hoja_antiguo()
+            return self.evaluate()
+            #return self.calcular_valor_hoja_antiguo()
         else:
             mejor = self.MIN_VALUE if self.minmax else self.MAX_VALUE
             for i in range(0, len(self.hijos)):

@@ -15,9 +15,12 @@ def busca(tablero, col):
 def juega(tablero, posicion):
     #tiempou = time.time()
     nodo = Nodo(tablero, None, -1, -1, 5, True, Nodo.MIN_VALUE, Nodo.MAX_VALUE)
+    print(f"{nodo.colSol} [{nodo.valor}]")
+    #ccc = int(input("Columna?: "))
+    #posicion[0] = tablero.queFilaDisp(ccc)
+    #posicion[1] = ccc
     posicion[0] = tablero.queFilaDisp(nodo.colSol)
     posicion[1] = nodo.colSol
-    print(Nodo.nodos_hasta_el_momento)
     Nodo.nodos_hasta_el_momento = 0  ##cosas de debuggeo
     #tiempou2 = time.time()
     #print(f"Acabao a los {tiempou2 - tiempou} segundos")
