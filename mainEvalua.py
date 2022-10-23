@@ -13,7 +13,10 @@ class Junit:
 
         self.id = Junit.next_id
         Junit.next_id += 1
-        self.tablero = Tablero(t)
+        self.tablero = Tablero(None)
+        for i in range(0,Junit.ALTO):
+            for j in range(0, Junit.ANCHO):
+                self.tablero.tablero[i][j] = t[i][j]
         self.ptc1 = ptc1
         self.ptc2 = ptc2
         self.ultima_fila = ultima_fila
@@ -49,7 +52,8 @@ class Junit:
         ##Aqui cada uno lo configura para que dado el self.tablero devuelva el valor
         ##Nota: asegurarse de que los valores de cada cosa son los mismos que en Junit
         ##Nota: tomamos que siempre que el 2, aunqeu deberia dar igual
-        nodo = Nodo(self.tablero,None,self.ultima_col, self.ultima_fila, 0,True, Nodo.MIN_VALUE, Nodo.MAX_VALUE)
+        Nodo.STARTING_LEVEL = 0
+        nodo = Nodo(self.tablero, self.ultima_col, self.ultima_fila, 0,True, Nodo.MIN_VALUE, Nodo.MAX_VALUE)
         return nodo.valor
 
 def main():

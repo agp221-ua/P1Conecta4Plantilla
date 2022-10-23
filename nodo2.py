@@ -62,8 +62,8 @@ class Nodo2:
                     break
 
     def evaluate(self):
-        punt = self.COL_VALUES[self.columna] * 1 if self.minmax else -1
-        #punt = 0
+        #punt = self.COL_VALUES[self.columna] * 1 if self.minmax else -1
+        punt = 0
         f_antes = [-1, -1, -1, -1, -1, -1, -1, -1]
         for col in range(0, 8):
             fila = self.tablero.queFilaDisp(col)

@@ -12,7 +12,7 @@ class Tablero:
             for i in range(self.alto):           
                 self.tablero.append([])
                 for j in range(self.ancho):
-                    self.tablero[i].append(tabPadre[i][j])
+                    self.tablero[i].append(tabPadre.getCelda(i,j))
         
     def __str__(self):
         salida="  0 1 2 3 4 5 6 7\n"
