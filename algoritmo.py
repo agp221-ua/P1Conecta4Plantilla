@@ -24,7 +24,8 @@ def juega(tablero, posicion):
     #print(Nodo.nodos_hasta_el_momento)
     Nodo.nodos_hasta_el_momento = 0  ##cosas de debuggeo
     tiempou2 = time.time()
-    print(tiempou2 - tiempou)
+    ttt = str(tiempou2 - tiempou).split('.')
+    print(f'{ttt[0]},{ttt[1]}')
     #print("Acabado nuevo")
     ####################################################
     ## sustituir este código por la llamada al algoritmo

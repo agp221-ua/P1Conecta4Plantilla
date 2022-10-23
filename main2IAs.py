@@ -20,16 +20,16 @@ def main(a):
     #         for pareja in range(10, trio, int(trio * 0.11)):
     #             global GLOBAL_SAVE
     #             jugando(pareja, trio, cuatro, a[2])
-    jugando(10, 100, 1000)
+    jugando()
 
 
-def jugando(pareja, trio, cuatro):
+def jugando():
     nueva = 0
     vieja = 0
     empate = 0
     #Nodo.probandoValores(pareja, trio, cuatro)
     for i in range(1, 3):
-        print('--------------------------------------------------------------')
+        #print('--------------------------------------------------------------')
         for ii in range(0, 8):
             #print(".", end="")
             tablero = Tablero(None)
@@ -42,31 +42,31 @@ def jugando(pareja, trio, cuatro):
                     res = tablero.cuatroEnRaya()
                     if res == 1:
                         vieja += 1
-                        print("Gana Nodo2" + str(posicion))
-                        print(str(tablero))
+                        # print("Gana Nodo2" + str(posicion))
+                        # print(str(tablero))
                         break
                     if res == 2:
                         nueva += 1
-                        print("Gana Nodo" + str(posicion))
-                        print(str(tablero))
+                        # print("Gana Nodo" + str(posicion))
+                        # print(str(tablero))
                         break
                     if tablero.empate():
                         empate += 1
-                        print(str(tablero))
-                        break
+                        # print(str(tablero))
+                        # break
                     posicion = [-1, -1]
                     juega2(tablero, posicion)
                     tablero.setCelda(posicion[0], posicion[1], 1)
                     res = tablero.cuatroEnRaya()
                     if res == 1:
                         vieja += 1
-                        print("Gana Nodo2" + str(posicion))
-                        print(str(tablero))
+                        # print("Gana Nodo2" + str(posicion))
+                        # print(str(tablero))
                         break
                     if res == 2:
                         nueva += 1
-                        print("Gana Nodo" + str(posicion))
-                        print(str(tablero))
+                        # print("Gana Nodo" + str(posicion))
+                        # print(str(tablero))
                         break
                 else:
                     posicion = [-1, -1]
@@ -75,17 +75,17 @@ def jugando(pareja, trio, cuatro):
                     res = tablero.cuatroEnRaya()
                     if res == 1:
                         vieja += 1
-                        print("Gana Nodo2" + str(posicion))
-                        print(str(tablero))
+                        # print("Gana Nodo2" + str(posicion))
+                        # print(str(tablero))
                         break
                     if res == 2:
                         nueva += 1
-                        print("Gana Nodo" + str(posicion))
-                        print(str(tablero))
+                        # print("Gana Nodo" + str(posicion))
+                        # print(str(tablero))
                         break
                     if tablero.empate():
                         empate += 1
-                        print(str(tablero))
+                        # print(str(tablero))
                         break
                     posicion = [-1, -1]
                     juega(tablero, posicion)
@@ -93,15 +93,15 @@ def jugando(pareja, trio, cuatro):
                     res = tablero.cuatroEnRaya()
                     if res == 1:
                         vieja += 1
-                        print("Gana Nodo2" + str(posicion))
-                        print(str(tablero))
+                        # print("Gana Nodo2" + str(posicion))
+                        # print(str(tablero))
                         break
                     if res == 2:
                         nueva += 1
-                        print("Gana Nodo" + str(posicion))
-                        print(str(tablero))
+                        # print("Gana Nodo" + str(posicion))
+                        # print(str(tablero))
                         break
-    print(f"{pareja}, {trio}, {cuatro}\n{nueva}  V {vieja}  E {empate}")
+    print(f"{10}, {100}, {1000}\n{nueva}  V {vieja}  E {empate}")
 
 
 if __name__ == "__main__":
