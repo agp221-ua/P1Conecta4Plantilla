@@ -15,7 +15,9 @@ def busca(tablero, col):
 
 # llama al algoritmo que decide la jugada
 def juega2(tablero, posicion):
-    nodo = Nodo2(tablero, None, -1, -1, 5, True, Nodo.MIN_VALUE, Nodo.MAX_VALUE)
+    Nodo2.IA_NUM = 1
+    Nodo2.OTHER_NUM = 2
+    nodo = Nodo2(tablero, None, -1, -1, 4, True, Nodo.MIN_VALUE, Nodo.MAX_VALUE)
     posicion[0] = tablero.queFilaDisp(nodo.colSol)
     posicion[1] = nodo.colSol
     #print("Acabao viejo")

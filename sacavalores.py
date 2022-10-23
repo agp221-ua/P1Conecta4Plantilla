@@ -59,7 +59,7 @@ def main():
     print()
     tcl = []
     for i in range(1, 11):
-        ii = i/10
+        ii = i / 10
         aux = []
         for iii in TCDiccc.keys():
             if ii - 0.1 < iii < ii:
@@ -67,6 +67,18 @@ def main():
         if len(aux) != 0:
             x = sum(aux) / len(aux)
             tcl.append(x)
+            print(ii, ' - ', x)
+    print()
+    pcl = []
+    for i in range(1, 11):
+        ii = i / 10
+        aux = []
+        for iii in PCDiccc.keys():
+            if ii - 0.1 < iii < ii:
+                aux.append(PCDiccc[iii])
+        if len(aux) != 0:
+            x = sum(aux) / len(aux)
+            pcl.append(x)
             print(ii, ' - ', x)
 
 if __name__ == "__main__":
