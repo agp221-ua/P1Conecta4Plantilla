@@ -42,31 +42,31 @@ def jugando():
                     res = tablero.cuatroEnRaya()
                     if res == 1:
                         vieja += 1
-                        # print("Gana Nodo2" + str(posicion))
-                        # print(str(tablero))
+                        print("Gana Nodo2" + str(posicion))
+                        print(str(tablero))
                         break
                     if res == 2:
                         nueva += 1
-                        # print("Gana Nodo" + str(posicion))
-                        # print(str(tablero))
+                        print("Gana Nodo" + str(posicion))
+                        print(str(tablero))
                         break
                     if tablero.empate():
                         empate += 1
-                        # print(str(tablero))
-                        # break
+                        print(str(tablero))
+                        break
                     posicion = [-1, -1]
                     juega2(tablero, posicion)
                     tablero.setCelda(posicion[0], posicion[1], 1)
                     res = tablero.cuatroEnRaya()
                     if res == 1:
                         vieja += 1
-                        # print("Gana Nodo2" + str(posicion))
-                        # print(str(tablero))
+                        print("Gana Nodo2" + str(posicion))
+                        print(str(tablero))
                         break
                     if res == 2:
                         nueva += 1
-                        # print("Gana Nodo" + str(posicion))
-                        # print(str(tablero))
+                        print("Gana Nodo" + str(posicion))
+                        print(str(tablero))
                         break
                 else:
                     posicion = [-1, -1]
@@ -75,17 +75,17 @@ def jugando():
                     res = tablero.cuatroEnRaya()
                     if res == 1:
                         vieja += 1
-                        # print("Gana Nodo2" + str(posicion))
-                        # print(str(tablero))
+                        print("Gana Nodo2" + str(posicion))
+                        print(str(tablero))
                         break
                     if res == 2:
                         nueva += 1
-                        # print("Gana Nodo" + str(posicion))
-                        # print(str(tablero))
+                        print("Gana Nodo" + str(posicion))
+                        print(str(tablero))
                         break
                     if tablero.empate():
                         empate += 1
-                        # print(str(tablero))
+                        print(str(tablero))
                         break
                     posicion = [-1, -1]
                     juega(tablero, posicion)
@@ -93,13 +93,13 @@ def jugando():
                     res = tablero.cuatroEnRaya()
                     if res == 1:
                         vieja += 1
-                        # print("Gana Nodo2" + str(posicion))
-                        # print(str(tablero))
+                        print("Gana Nodo2" + str(posicion))
+                        print(str(tablero))
                         break
                     if res == 2:
                         nueva += 1
-                        # print("Gana Nodo" + str(posicion))
-                        # print(str(tablero))
+                        print("Gana Nodo" + str(posicion))
+                        print(str(tablero))
                         break
     print(f"{10}, {100}, {1000}\n{nueva}  V {vieja}  E {empate}")
 

@@ -8,7 +8,7 @@ class Nodo:
     nodos_hasta_el_momento = 0
     IA_NUM = 2
     OTHER_NUM = 1
-    STARTING_LEVEL = 8
+    STARTING_LEVEL = 6
     PAIR_VALUE = 10
     TRIO_VALUE = 100
     FOUR_VALUE = 1000

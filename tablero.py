@@ -3,6 +3,9 @@ class Tablero:
         self.ancho=8
         self.alto=7        
         self.tablero=[]
+        self.disponible = []
+        for i in range(0,self.ancho):
+            self.disponible.append(self.alto - 1)
         if tabPadre==None:
             for i in range(self.alto):           
                 self.tablero.append([])
@@ -42,13 +45,12 @@ class Tablero:
             return -1
     
     def setCelda(self, fila, col, val):
-        self.tablero[fila][col]=val
+        self.tablero[fila][col] = val
+        self.disponible[col] = fila - 1 if val != 0 else fila
+
 
     def queFilaDisp(self, col):
-        for i in range(6,-1,-1):
-            if(self.getCelda(i,col) == 0):
-                return i
-        return -1
+        return self.disponible[col]
 
     def insertFicha(self, col, val):
         fila = self.queFilaDisp(col)
