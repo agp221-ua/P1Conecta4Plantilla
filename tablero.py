@@ -46,7 +46,8 @@ class Tablero:
     
     def setCelda(self, fila, col, val):
         self.tablero[fila][col] = val
-        self.disponible[col] = fila - 1 if val != 0 else fila
+        if 0 <= fila < self.alto:
+            self.disponible[col] = fila - 1 if val != 0 else fila
 
 
     def queFilaDisp(self, col):

@@ -3,12 +3,22 @@ import sys
 
 
 class Nodo:
+    """
+        La clase Nodo sirve para almacenar de forma visual los diferentes datos y metodos a usar en todo el arbol
+
+        Genera de forma recursiva todos los hijos hasta los casos base.
+
+        Una vez creado, accediendo a .colSol se tiene la columna a colocar la ficha.
+    """
     MAX_VALUE = sys.maxsize
+    '''Maximo valor que puede tomar un Nodo'''
     MIN_VALUE = -sys.maxsize - 1
+    '''Minimo valor que puede tomar un Nodo'''
     nodos_hasta_el_momento = 0
+    '''Numero de nodos creados a partir de este nodo (cabe establecerlo a 0 en algoritmo al acabar con el Nodo)'''
     IA_NUM = 2
     OTHER_NUM = 1
-    STARTING_LEVEL = 6
+    STARTING_LEVEL = 8
     PAIR_VALUE = 10
     TRIO_VALUE = 100
     FOUR_VALUE = 1000
@@ -17,6 +27,16 @@ class Nodo:
     C = [-1, 0, 1, -1,1,-1,0,1]
 
     def __init__(self, tablero, columna, fila_cuatro, nivel, minmax, alpha, beta):  # min false, max true
+        '''
+
+        @param tablero:
+        @param columna:
+        @param fila_cuatro:
+        @param nivel:
+        @param minmax:
+        @param alpha:
+        @param beta:
+        '''
         Nodo.nodos_hasta_el_momento += 1
         self.valor = -1
         self.hijos = []
