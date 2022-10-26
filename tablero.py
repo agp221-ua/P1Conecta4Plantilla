@@ -31,7 +31,14 @@ class Tablero:
             salida += "\n"
         return salida
         
-                
+    def toKey(self):
+        s = ''
+        for i in self.tablero:
+            for j in i:
+                s += str(j)
+        return s
+
+
     def getAncho(self):
         return self.ancho
     

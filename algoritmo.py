@@ -14,7 +14,7 @@ def busca(tablero, col):
 # llama al algoritmo que decide la jugada
 def juega(tablero, posicion):
     tiempou = time.time()
-    print('recibido')
+    #print('recibido')
     nodo = Nodo(tablero, -1, -1, Nodo.STARTING_LEVEL, True, Nodo.MIN_VALUE, Nodo.MAX_VALUE)
     #print(f"{nodo.colSol} [{nodo.valor}]")
     #ccc = int(input("Columna?: "))
@@ -27,6 +27,6 @@ def juega(tablero, posicion):
     tiempou2 = time.time()
     ttt = str(tiempou2 - tiempou).split('.')
     print(f'{ttt[0]},{ttt[1]}')
-    #print(str(tablero))
+    # print(str(tablero))
     #print("Acabado nuevo")
 

@@ -17,6 +17,8 @@ class Junit:
         for i in range(0,Junit.ALTO):
             for j in range(0, Junit.ANCHO):
                 self.tablero.tablero[i][j] = t[i][j]
+                if t[i][j] != 0 and self.tablero.disponible[j] >= i:
+                    self.tablero.disponible[j] = i-1
         self.ptc1 = ptc1
         self.ptc2 = ptc2
         self.ultima_fila = ultima_fila
@@ -81,8 +83,8 @@ def main():
                 b.append(int(x))
             aux.append(b)
 
-    for x in junits: x.JAssert()
-    #junits[12].JAssert()
+    #for x in junits: x.JAssert()
+    junits[13].JAssert()
 
 
 if __name__ == "__main__":
