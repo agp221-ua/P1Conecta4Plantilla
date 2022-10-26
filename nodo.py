@@ -34,7 +34,7 @@ class Nodo:
     '''Orden en el que va a explorar las filas en evalua() al comprobar los vecinos'''
     C = [-1, 0, 1, -1,1,-1,0,1]
     '''Orden en el que va a explorar las filas en evalua() al comprobar los vecinos'''
-    memoryzacion = {}
+    memorization = {}
     def __init__(self, tablero, columna, fila_cuatro, nivel, minmax, alpha, beta):
         '''
         Constructor de la clase Nodo. Este construye recursivamente todos sus nodos hijos para obtener la mejor columna dado un tablero.
@@ -73,8 +73,8 @@ class Nodo:
     def evaluate(self, tablero):
         punt = 0
         a = tablero.toKey()
-        if a in Nodo.memoryzacion.keys():
-            return Nodo.memoryzacion[a]
+        if a in Nodo.memorization.keys():
+            return Nodo.memorization[a]
         f_antes = [-1, -1, -1, -1, -1, -1, -1, -1]
         for col in range(0, tablero.getAncho()):
             fila = tablero.queFilaDisp(col)
@@ -111,7 +111,7 @@ class Nodo:
                         if (tablero.getCelda(ffff, cccc) == 0 and tablero.getCelda(fff, ccc) == 0) or (tablero.getCelda(ffff, cccc) == 0 and tablero.getCelda(ffff - f, cccc - c) == 0) or (tablero.getCelda(fff+f, ccc+c) == 0 and tablero.getCelda(fff, ccc) == 0):
                             punt += Nodo.PAIR_VALUE if tablero.getCelda(ff, cc) == Nodo.IA_NUM else -Nodo.PAIR_VALUE
             f_antes[col] = fila
-            Nodo.memoryzacion[a] = punt
+            Nodo.memorization[a] = punt
         return punt
 
     def minimax(self, minmax, tablero, nivel):

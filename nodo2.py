@@ -20,7 +20,7 @@ class Nodo2:
     '''Numero que va a tomar la IA como si misma'''
     OTHER_NUM = 1
     '''Numero que va a tomar la IA como el enemigo'''
-    STARTING_LEVEL = 9
+    STARTING_LEVEL = 5
     '''Nivel de profundidad maxima'''
     PAIR_VALUE = 10
     '''Valor de las parejas'''
