@@ -20,7 +20,7 @@ class Nodo:
     '''Numero que va a tomar la IA como si misma'''
     OTHER_NUM = 1
     '''Numero que va a tomar la IA como el enemigo'''
-    STARTING_LEVEL = 9
+    STARTING_LEVEL = 7
     '''Nivel de profundidad maxima'''
     PAIR_VALUE = 10
     '''Valor de las parejas'''
@@ -71,6 +71,11 @@ class Nodo:
 
 
     def evaluate(self, tablero):
+        '''
+        La funcion evaluate o funcion de evaluacion, calcula, para un tablero dado, el valor del nodo
+        :param tablero: tablero del que obtener la situacion actual
+        :return: el valor del tablero dado
+        '''
         punt = 0
         a = tablero.toKey()
         if a in Nodo.memorization.keys():
@@ -115,17 +120,24 @@ class Nodo:
         return punt
 
     def minimax(self, minmax, tablero, nivel):
+        '''
+        La funcion minimax calcula el mejor valor de entre los nodos hijos segun si es nodo max o min.
+        En caso del nodo raiz tambien inserta en self.colSol la columna a insertar la solucion
+        :param minmax: True - max; False - min
+        :param tablero: tablero actual
+        :param nivel: nivel actual del nodo
+        '''
         for i in Nodo.ORDER:
-            if self.beta > self.alpha and tablero.queFilaDisp(i) != -1:
+            # if self.beta > self.alpha and tablero.queFilaDisp(i) != -1:
+            if tablero.queFilaDisp(i) != -1:
                 fila = tablero.insertFicha(i, Nodo.IA_NUM if minmax else Nodo.OTHER_NUM)
                 hijo = Nodo(tablero, i, fila, nivel - 1, not minmax, self.alpha, self.beta)
-                if minmax:
-                    self.alpha = max(hijo.valor, self.alpha)
-                else:
-                    self.beta = min(hijo.valor, self.beta)
+                # if minmax:
+                #     self.alpha = max(hijo.valor, self.alpha)
+                # else:
+                #     self.beta = min(hijo.valor, self.beta)
                 tablero.removeFicha(i, fila)
                 valor_antes = self.valor
                 self.valor = max(self.valor, hijo.valor) if minmax else min(self.valor, hijo.valor)
                 if nivel == Nodo.STARTING_LEVEL:
                     self.colSol = hijo.columna if valor_antes != self.valor else self.colSol
-

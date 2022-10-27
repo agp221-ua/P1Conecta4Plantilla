@@ -47,7 +47,7 @@ class Junit:
         res -= self.ptc1[1] * Junit.TRIO
         res -= self.ptc1[2] * Junit.FOUR
         val = self.calculandoNodoUser()
-        print(f"[Junit {self.id}] Calculado correctamente" if (res == val) else f"[Junit {self.id}] Calculado ERRONEAMENTE: Esperado [{res}] - Obtenido [{val}]")
+        print(f"[Junit {self.id}] Calculado correctamente; Valor = {val}" if (res == val) else f"[Junit {self.id}] Calculado ERRONEAMENTE: Esperado [{res}] - Obtenido [{val}]")
 
 
     def calculandoNodoUser(self):
@@ -83,8 +83,8 @@ def main():
                 b.append(int(x))
             aux.append(b)
 
-    #for x in junits: x.JAssert()
-    junits[13].JAssert()
+    for x in junits: x.JAssert()
+    #junits[13].JAssert()
 
 
 if __name__ == "__main__":

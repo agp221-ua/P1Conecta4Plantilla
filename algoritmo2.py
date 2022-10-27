@@ -22,7 +22,7 @@ def juega2(tablero, posicion):
     t1 = time.time()
     nodo = Nodo2(tablero, -1, -1, Nodo2.STARTING_LEVEL, True, Nodo.MIN_VALUE, Nodo.MAX_VALUE)
     t2 = time.time()
-    print(t2 - t1)
+    #print(t2 - t1)
     posicion[0] = tablero.queFilaDisp(nodo.colSol)
     posicion[1] = nodo.colSol
     #print("Acabao viejo")

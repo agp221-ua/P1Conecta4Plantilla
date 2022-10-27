@@ -20,7 +20,7 @@ class Nodo2:
     '''Numero que va a tomar la IA como si misma'''
     OTHER_NUM = 1
     '''Numero que va a tomar la IA como el enemigo'''
-    STARTING_LEVEL = 5
+    STARTING_LEVEL = 7
     '''Nivel de profundidad maxima'''
     PAIR_VALUE = 10
     '''Valor de las parejas'''
@@ -34,6 +34,7 @@ class Nodo2:
     '''Orden en el que va a explorar las filas en evalua() al comprobar los vecinos'''
     C = [-1, 0, 1, -1,1,-1,0,1]
     '''Orden en el que va a explorar las filas en evalua() al comprobar los vecinos'''
+    memorization = {}
     def __init__(self, tablero, columna, fila_cuatro, nivel, minmax, alpha, beta):
         '''
         Constructor de la clase Nodo. Este construye recursivamente todos sus nodos hijos para obtener la mejor columna dado un tablero.
@@ -49,10 +50,15 @@ class Nodo2:
         self.valor = self.MIN_VALUE if minmax else self.MAX_VALUE
         '''(Int) Valor del nodo'''
         self.columna = columna
+        '''(Int) Columna en la cual se ha metido ficha (-1 si es raiz)'''
         self.colSol = -1
+        '''(Int) Variable en la cual reside la columna que ha elegido la IA (al calcularse todo)'''
         self.beta = beta
+        '''(Int) Beta para poda alfa y beta'''
         self.alpha = alpha
+        '''(Int) Beta para poda alfa y beta'''
         cer = tablero.cuatroEnRayaFast(fila_cuatro, columna)
+        #Aqui comprobamos si hay 4 en raya. Si no hay, se evalua si es caso base o se cr
         if cer == 0:
             if nivel != 0 and not(tablero.empate()):
                 self.minimax(minmax, tablero, nivel)
@@ -65,7 +71,15 @@ class Nodo2:
 
 
     def evaluate(self, tablero):
+        '''
+        La funcion evaluate o funcion de evaluacion, calcula, para un tablero dado, el valor del nodo
+        :param tablero: tablero del que obtener la situacion actual
+        :return: el valor del tablero dado
+        '''
         punt = 0
+        a = tablero.toKey()
+        if a in Nodo2.memorization.keys():
+            return Nodo2.memorization[a]
         f_antes = [-1, -1, -1, -1, -1, -1, -1, -1]
         for col in range(0, tablero.getAncho()):
             fila = tablero.queFilaDisp(col)
@@ -102,9 +116,17 @@ class Nodo2:
                         if (tablero.getCelda(ffff, cccc) == 0 and tablero.getCelda(fff, ccc) == 0) or (tablero.getCelda(ffff, cccc) == 0 and tablero.getCelda(ffff - f, cccc - c) == 0) or (tablero.getCelda(fff+f, ccc+c) == 0 and tablero.getCelda(fff, ccc) == 0):
                             punt += Nodo2.PAIR_VALUE if tablero.getCelda(ff, cc) == Nodo2.IA_NUM else -Nodo2.PAIR_VALUE
             f_antes[col] = fila
+            Nodo2.memorization[a] = punt
         return punt
 
     def minimax(self, minmax, tablero, nivel):
+        '''
+        La funcion minimax calcula el mejor valor de entre los nodos hijos segun si es nodo max o min.
+        En caso del nodo raiz tambien inserta en self.colSol la columna a insertar la solucion
+        :param minmax: True - max; False - min
+        :param tablero: tablero actual
+        :param nivel: nivel actual del nodo
+        '''
         for i in Nodo2.ORDER:
             if self.beta > self.alpha and tablero.queFilaDisp(i) != -1:
                 fila = tablero.insertFicha(i, Nodo2.IA_NUM if minmax else Nodo2.OTHER_NUM)
@@ -118,4 +140,3 @@ class Nodo2:
                 self.valor = max(self.valor, hijo.valor) if minmax else min(self.valor, hijo.valor)
                 if nivel == Nodo2.STARTING_LEVEL:
                     self.colSol = hijo.columna if valor_antes != self.valor else self.colSol
-
