@@ -1,4 +1,6 @@
-# ALEJANDRO GALAN PEREZ - 24435563H - GRUPO 3
+import multiprocessing
+import threading
+
 from tablero import *
 from algoritmo import *
 from algoritmo2 import *
