@@ -1,6 +1,6 @@
+# ALEJANDRO GALAN PEREZ - 24435563H - GRUPO 3
 import time
 
-from nodo import *
 from nodo2 import Nodo2
 
 
@@ -19,27 +19,7 @@ def busca(tablero, col):
 def juega2(tablero, posicion):
     Nodo2.IA_NUM = 1
     Nodo2.OTHER_NUM = 2
-    t1 = time.time()
-    nodo = Nodo2(tablero, -1, -1, Nodo2.STARTING_LEVEL, True, Nodo.MIN_VALUE, Nodo.MAX_VALUE)
-    t2 = time.time()
-    #print('------', t2 - t1)
+    nodo = Nodo2(tablero, -1, -1, Nodo2.STARTING_LEVEL, True, Nodo2.MIN_VALUE, Nodo2.MAX_VALUE)
     posicion[0] = tablero.queFilaDisp(nodo.colSol)
     posicion[1] = nodo.colSol
-    #print("Acabao viejo")
-
-    ####################################################
-    ## sustituir este código por la llamada al algoritmo
-    #
-    # enc = False
-    # c = 0
-    # while not enc and c < tablero.getAncho():
-    #     f = busca(tablero, c)
-    #     if f != -1:
-    #         enc = True
-    #     else:
-    #         c = c + 1
-    # if f != -1:
-    #     posicion[0] = f
-    #     posicion[1] = c
-    ####################################################
-
+    Nodo2.nodos_hasta_el_momento = 0

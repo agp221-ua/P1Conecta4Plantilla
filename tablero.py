@@ -1,36 +1,37 @@
-class Tablero:    
+# ALEJANDRO GALAN PEREZ - 24435563H - GRUPO 3
+class Tablero:
     def __init__(self, tabPadre):
-        self.ancho=8
-        self.alto=7        
-        self.tablero=[]
+        self.ancho = 8
+        self.alto = 7
+        self.tablero = []
         self.disponible = []
-        for i in range(0,self.ancho):
+        for i in range(0, self.ancho):
             self.disponible.append(self.alto - 1)
-        if tabPadre==None:
-            for i in range(self.alto):           
+        if tabPadre == None:
+            for i in range(self.alto):
                 self.tablero.append([])
                 for j in range(self.ancho):
                     self.tablero[i].append(0)
         else:
-            for i in range(self.alto):           
+            for i in range(self.alto):
                 self.tablero.append([])
                 for j in range(self.ancho):
-                    self.tablero[i].append(tabPadre.getCelda(i,j))
-        
+                    self.tablero[i].append(tabPadre.getCelda(i, j))
+
     def __str__(self):
-        salida="  0 1 2 3 4 5 6 7\n"
+        salida = "  0 1 2 3 4 5 6 7\n"
         for f in range(self.alto):
-            salida+=str(f)+" "
-            for c in range(self.ancho):         
+            salida += str(f) + " "
+            for c in range(self.ancho):
                 if self.tablero[f][c] == 0:
                     salida += ". "
                 elif self.tablero[f][c] == 1:
-                    salida +="1 "
+                    salida += "1 "
                 elif self.tablero[f][c] == 2:
                     salida += "2 "
             salida += "\n"
         return salida
-        
+
     def toKey(self):
         s = ''
         for i in self.tablero:
@@ -38,73 +39,78 @@ class Tablero:
                 s += str(j)
         return s
 
-
     def getAncho(self):
         return self.ancho
-    
+
     def getAlto(self):
         return self.alto
-    
+
     def getCelda(self, fila, col):
         if 0 <= fila < self.alto and 0 <= col < self.ancho:
             return self.tablero[fila][col]
         else:
             return -1
-    
+
     def setCelda(self, fila, col, val):
         self.tablero[fila][col] = val
         if 0 <= fila < self.alto:
             self.disponible[col] = fila - 1 if val != 0 else fila
-
 
     def queFilaDisp(self, col):
         return self.disponible[col]
 
     def insertFicha(self, col, val):
         fila = self.queFilaDisp(col)
-        if(fila != -1):
-            self.setCelda(fila,col,val)
+        if (fila != -1):
+            self.setCelda(fila, col, val)
         return fila
-    def removeFicha(self,col,fila):
+
+    def removeFicha(self, col, fila):
         if fila != -1:
-            self.setCelda(fila,col, 0)
+            self.setCelda(fila, col, 0)
 
     def empate(self):
         return self.tablero[0].count(0) == 0
 
     # detecta si hay cuatro fichas en línea y devuelve el ganador
     def cuatroEnRaya(self):
-        i=0        
-        fin=False
-        ganador=0
-        
-        while not fin and i<self.getAlto():
-            j=0
-            while not fin and j<self.getAncho():
-                casilla=self.getCelda(i,j)
-                if casilla!=0:
-                    #búsqueda en horizontal
-                    if (j+3) <self.getAncho():
-                        if self.getCelda(i, j+1)==casilla and self.getCelda(i, j+2)==casilla and self.getCelda(i, j+3)==casilla:
-                            ganador=casilla
-                            fin=True
-                    #búsqueda en vertical
-                    if (i+3) <self.getAlto():
-                        if self.getCelda(i+1, j)==casilla and self.getCelda(i+2, j)==casilla and self.getCelda(i+3, j)==casilla:
-                            ganador=casilla
-                            fin=True
-                    #búsqueda en diagonal
-                    if (i+3) <self.getAlto():
-                        if (j-3) >= 0:
-                            if self.getCelda(i+1, j-1)==casilla and self.getCelda(i+2, j-2)==casilla and self.getCelda(i+3, j-3)==casilla:
-                                ganador=casilla
-                                fin=True
-                        if (j+3) <self.getAncho():
-                            if self.getCelda(i+1, j+1)==casilla and self.getCelda(i+2, j+2)==casilla and self.getCelda(i+3, j+3)==casilla:
-                                ganador=casilla
-                                fin=True
-                j=j+1
-            i=i+1
+        i = 0
+        fin = False
+        ganador = 0
+
+        while not fin and i < self.getAlto():
+            j = 0
+            while not fin and j < self.getAncho():
+                casilla = self.getCelda(i, j)
+                if casilla != 0:
+                    # búsqueda en horizontal
+                    if (j + 3) < self.getAncho():
+                        if self.getCelda(i, j + 1) == casilla and self.getCelda(i, j + 2) == casilla and self.getCelda(
+                                i, j + 3) == casilla:
+                            ganador = casilla
+                            fin = True
+                    # búsqueda en vertical
+                    if (i + 3) < self.getAlto():
+                        if self.getCelda(i + 1, j) == casilla and self.getCelda(i + 2, j) == casilla and self.getCelda(
+                                i + 3, j) == casilla:
+                            ganador = casilla
+                            fin = True
+                    # búsqueda en diagonal
+                    if (i + 3) < self.getAlto():
+                        if (j - 3) >= 0:
+                            if self.getCelda(i + 1, j - 1) == casilla and self.getCelda(i + 2,
+                                                                                        j - 2) == casilla and self.getCelda(
+                                    i + 3, j - 3) == casilla:
+                                ganador = casilla
+                                fin = True
+                        if (j + 3) < self.getAncho():
+                            if self.getCelda(i + 1, j + 1) == casilla and self.getCelda(i + 2,
+                                                                                        j + 2) == casilla and self.getCelda(
+                                    i + 3, j + 3) == casilla:
+                                ganador = casilla
+                                fin = True
+                j = j + 1
+            i = i + 1
         return ganador
 
     def cuatroEnRayaFast(self, fila, col):
@@ -122,7 +128,7 @@ class Tablero:
                             cccc = ccc + c
                             if (0 <= ffff < self.alto and
                                 0 <= cccc < self.ancho and
-                                self.tablero[ffff][cccc] == this_cell) or\
+                                self.tablero[ffff][cccc] == this_cell) or \
                                     (0 <= fila - f < self.alto and
                                      0 <= col - c < self.ancho and
                                      self.tablero[fila - f][col - c] == this_cell):

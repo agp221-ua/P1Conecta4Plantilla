@@ -1,5 +1,5 @@
+# ALEJANDRO GALAN PEREZ - 24435563H - GRUPO 3
 import sys
-
 
 
 class Nodo2:
@@ -20,7 +20,7 @@ class Nodo2:
     '''Numero que va a tomar la IA como si misma'''
     OTHER_NUM = 1
     '''Numero que va a tomar la IA como el enemigo'''
-    STARTING_LEVEL = 9
+    STARTING_LEVEL = 7
     '''Nivel de profundidad maxima'''
     PAIR_VALUE = 10
     '''Valor de las parejas'''
@@ -30,10 +30,12 @@ class Nodo2:
     '''Valor de los 4 en raya'''
     ORDER = [3, 4, 2, 5, 1, 6, 0, 7]
     '''Orden en el que va a explorar los hijos'''
-    F = [-1, -1, -1,0,0,1,1,1]
+    F = [-1, -1, -1, 0, 0, 1, 1, 1]
     '''Orden en el que va a explorar las filas en evalua() al comprobar los vecinos'''
-    C = [-1, 0, 1, -1,1,-1,0,1]
+    C = [-1, 0, 1, -1, 1, -1, 0, 1]
     '''Orden en el que va a explorar las filas en evalua() al comprobar los vecinos'''
+    memoryzacion = {}
+
     def __init__(self, tablero, columna, fila_cuatro, nivel, minmax, alpha, beta):
         '''
         Constructor de la clase Nodo. Este construye recursivamente todos sus nodos hijos para obtener la mejor columna dado un tablero.
@@ -49,12 +51,16 @@ class Nodo2:
         self.valor = self.MIN_VALUE if minmax else self.MAX_VALUE
         '''(Int) Valor del nodo'''
         self.columna = columna
+        '''(Int) Columna en la cual se ha metido ficha (-1 si es raiz)'''
         self.colSol = -1
+        '''(Int) Variable en la cual reside la columna que ha elegido la IA (al calcularse todo)'''
         self.beta = beta
+        '''(Int) Beta para poda alfa y beta'''
         self.alpha = alpha
+        '''(Int) Beta para poda alfa y beta'''
         cer = tablero.cuatroEnRayaFast(fila_cuatro, columna)
         if cer == 0:
-            if nivel != 0 and not(tablero.empate()):
+            if nivel != 0 and not (tablero.empate()):
                 self.minimax(minmax, tablero, nivel)
             else:
                 self.valor = self.evaluate(tablero)
@@ -63,9 +69,16 @@ class Nodo2:
         else:
             self.valor = -Nodo2.FOUR_VALUE - nivel
 
-
     def evaluate(self, tablero):
+        '''
+        Funcion de evaluacion
+        :param tablero: tablero del que obtener el valor
+        :return: el valor obtenido de la evaluacion del tablero
+        '''
         punt = 0
+        a = tablero.toKey()
+        if a in Nodo2.memoryzacion.keys():
+            return Nodo2.memoryzacion[a]
         f_antes = [-1, -1, -1, -1, -1, -1, -1, -1]
         for col in range(0, tablero.getAncho()):
             fila = tablero.queFilaDisp(col)
@@ -84,31 +97,45 @@ class Nodo2:
                 if tablero.getCelda(ff, cc) == this_cell:
                     fff = ff + f
                     ccc = cc + c
-                    if tablero.getCelda(fff, ccc) == this_cell and f_antes[ccc] != fff and (tablero.getCelda(fff + f, ccc + c) == 0 or tablero.getCelda(fila - f, col - c) == 0):
+                    if tablero.getCelda(fff, ccc) == this_cell and f_antes[ccc] != fff and (
+                            tablero.getCelda(fff + f, ccc + c) == 0 or tablero.getCelda(fila - f, col - c) == 0):
                         punt += Nodo2.TRIO_VALUE if tablero.getCelda(fff, ccc) == Nodo2.IA_NUM else -Nodo2.TRIO_VALUE
                         continue
-                    if (already_evaluated[0] and f == 1 and c == 1) or (already_evaluated[1] and f == 1 and c == -1) or (already_evaluated[2] and f == 0 and c == 1):
+                    if (already_evaluated[0] and f == 1 and c == 1) or (
+                            already_evaluated[1] and f == 1 and c == -1) or (
+                            already_evaluated[2] and f == 0 and c == 1):
                         continue
                     ffff = fila - f
                     cccc = col - c
-                    if not(0 <= cccc < 8) or f_antes[cccc] != ffff:
-                        if tablero.getCelda(ffff, cccc) == this_cell and (tablero.getCelda(ff + f, cc + c) == 0 or tablero.getCelda(ffff - f, cccc - c) == 0):
+                    if not (0 <= cccc < 8) or f_antes[cccc] != ffff:
+                        if tablero.getCelda(ffff, cccc) == this_cell and (
+                                tablero.getCelda(ff + f, cc + c) == 0 or tablero.getCelda(ffff - f, cccc - c) == 0):
                             punt += Nodo2.TRIO_VALUE if tablero.getCelda(ffff, cccc) == Nodo2.IA_NUM else -Nodo2.TRIO_VALUE
                             aux = f - c == 0  # the same as (f == 1 and c == 1) or (f == -1 and c == -1)
                             already_evaluated[0] = already_evaluated[0] or aux
                             already_evaluated[1] = already_evaluated[1] or not aux
                             already_evaluated[2] = already_evaluated[2] or f == 0
                             continue
-                        if (tablero.getCelda(ffff, cccc) == 0 and tablero.getCelda(fff, ccc) == 0) or (tablero.getCelda(ffff, cccc) == 0 and tablero.getCelda(ffff - f, cccc - c) == 0) or (tablero.getCelda(fff+f, ccc+c) == 0 and tablero.getCelda(fff, ccc) == 0):
+                        if (tablero.getCelda(ffff, cccc) == 0 and tablero.getCelda(fff, ccc) == 0) or (
+                                tablero.getCelda(ffff, cccc) == 0 and tablero.getCelda(ffff - f, cccc - c) == 0) or (
+                                tablero.getCelda(fff + f, ccc + c) == 0 and tablero.getCelda(fff, ccc) == 0):
                             punt += Nodo2.PAIR_VALUE if tablero.getCelda(ff, cc) == Nodo2.IA_NUM else -Nodo2.PAIR_VALUE
             f_antes[col] = fila
+            Nodo2.memoryzacion[a] = punt
         return punt
 
     def minimax(self, minmax, tablero, nivel):
+        '''
+        Funcion minimax. Busca el valor del nodo a partir de la aplicacion del algoritmo minimax entre los hijos
+        :param minmax: Booleano que indica si es un nodo max (True) o min (False)
+        :param tablero: Tablero del nodo actual
+        :param nivel: Nivel de profundidad del nodo actual
+        '''
         for i in Nodo2.ORDER:
             if self.beta > self.alpha and tablero.queFilaDisp(i) != -1:
                 fila = tablero.insertFicha(i, Nodo2.IA_NUM if minmax else Nodo2.OTHER_NUM)
-                hijo = Nodo2(tablero, i, fila, nivel - 1, not minmax, self.alpha, self.beta)
+                hijo = Nodo2(tablero, i, fila, nivel - 1, not minmax, self.alpha, self.beta)  # Creacion del hijo
+                # Aplicacion de alfabeta
                 if minmax:
                     self.alpha = max(hijo.valor, self.alpha)
                 else:
@@ -118,4 +145,3 @@ class Nodo2:
                 self.valor = max(self.valor, hijo.valor) if minmax else min(self.valor, hijo.valor)
                 if nivel == Nodo2.STARTING_LEVEL:
                     self.colSol = hijo.columna if valor_antes != self.valor else self.colSol
-

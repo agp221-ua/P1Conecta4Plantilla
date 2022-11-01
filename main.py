@@ -1,3 +1,4 @@
+#ALEJANDRO GALAN PEREZ - 24435563H - GRUPO 3
 import pygame
 from tablero import *
 from algoritmo import *
